@@ -1,0 +1,82 @@
+Index: app/src/main/java/com/example/udhay/attendence/MainActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/udhay/attendence/MainActivity.java	(revision )
++++ app/src/main/java/com/example/udhay/attendence/MainActivity.java	(revision )
+@@ -1,5 +1,6 @@
+ package com.example.udhay.attendence;
+ 
++import android.content.Intent;
+ import android.support.v7.app.AppCompatActivity;
+ import android.os.Bundle;
+ import android.util.Log;
+@@ -11,7 +12,9 @@
+ import android.widget.ListView;
+ import android.widget.Toast;
+ 
++import java.text.DateFormat;
+ import java.util.ArrayList;
++import java.util.Date;
+ import java.util.HashMap;
+ 
+ public class MainActivity extends AppCompatActivity {
+@@ -32,11 +35,14 @@
+ 
+         ListView list = (ListView)findViewById(R.id.list);
+ 
++
+          arrayList = new ArrayList<Integer>();
+-         for(int i =1; i<=75 ; i++) {
++
++         for(int i =1; i<=77 ; i++) {
+              arrayList.add(16103000 +i);
+ 
+          }
++
+         //ArrayAdapter arrayAdapter = new ArrayAdapter(getApplicationContext() , android.R.layout.simple_list_item_1 , arrayList);
+ 
+        adapter = new CustomAdapter(this , arrayList , hashMap);
+@@ -62,7 +68,7 @@
+             }
+         });
+ 
+-        for (int i = 1; i <=75 ; i++) {
++        for (int i = 1; i <=78 ; i++) {
+             hashMap.put(i , false);
+         }
+ 
+@@ -90,10 +96,12 @@
+ 
+     private void send(){
+ 
+-        String numbers =" ";
++        String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+ 
++        String numbers =currentDateTimeString+"\n ";
+ 
+-        for(int i=1 ; i<=75 ;i++){
++
++        for(int i=1 ; i<=78 ;i++){
+ 
+             if(hashMap.get(i)){
+                 numbers += (i +",");
+@@ -101,7 +109,16 @@
+ 
+         }
+ 
+-        Log.v("Number" , numbers);
++        Log.v("numbers" , numbers);
++
++        Intent intent = new Intent(Intent.ACTION_SEND);
++
++        intent.putExtra(Intent.EXTRA_TEXT , numbers);
++
++        intent.setType("text/plain");
++
++        startActivity(intent);
++
+     }
+ 
+ }
